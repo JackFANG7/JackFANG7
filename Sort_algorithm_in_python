@@ -7,3 +7,77 @@ def BubbleSort(a):
                 a[i+1]=tmp
     return a
     
+def SelectionSort(b):
+    times=0
+    while times<len(b):
+        index=0
+        for i in range(len(b)-times):
+            if b[index]<b[i]:
+                index=i
+        tmp=b[index]
+        b[index]=b[len(b)-times-1]
+        b[len(b)-times-1]=tmp
+        times+=1
+        
+def InsertionSort(c):
+    for num in range(1,len(c)):
+        current_value=c[num]
+        index=num
+        while current_value<c[index-1] and index>0:
+            c[index]=c[index-1]
+            index-=1
+        c[index]=current_value
+        
+#O(nlog(n))
+def MergeSort(L):
+    if len(L)>1:
+        mid=len(L)//2
+        left=L[:mid]
+        right=L[mid:]
+        MergeSort(left)
+        MergeSort(right)
+        i=0
+        j=0
+        k=0
+        while i<len(left) and j<len(right):
+            if left[i]<right[j]:
+                L[k]=left[i]
+                i+=1
+            else:
+                L[k]=right[j]
+                j+=1
+            k+=1
+        while i<len(left):
+            L[k]=left[i]
+            i+=1
+            k+=1
+        while j<len(right):
+            L[k]=right[j]
+            j+=1
+            k+=1
+            
+def Partition(L,first,last):
+    pivot=L[first]
+    left=first+1
+    right=last
+    done= False
+    while not done:
+        while pivot>=L[left] and left<=right:
+            left+=1
+        while pivot<=L[right] and left<=right:
+            right-=1
+        if left > right:
+            done=True
+        else:
+            temp=L[left]
+            L[left]=L[right]
+            L[right]=temp
+    temp=L[first]
+    L[first]=L[right]
+    L[right]=temp
+    return right
+def QuickSort(L,start,end):
+    if start<end:
+        index=Partition(L,start,end)
+        QuickSort(L,start,index-1)
+        QuickSort(L,index+1,end)
